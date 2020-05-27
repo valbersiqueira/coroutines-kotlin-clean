@@ -1,0 +1,69 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+apply from: "$rootDir/tools/dependencies/versions.gradle"
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.1"
+
+    defaultConfig {
+        applicationId "com.teste.getcep"
+        minSdkVersion 24
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+}
+
+dependencies {
+    def applicationDependency = rootProject.ext.mainApplication
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation applicationDependency.kotlin
+    implementation applicationDependency.appcompat
+
+    implementation applicationDependency.corektx
+
+    implementation applicationDependency.constraintlayout
+
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation applicationDependency.espresso
+
+    implementation applicationDependency.coroutines
+
+    implementation applicationDependency.retrofit
+    implementation applicationDependency.gson
+
+    implementation applicationDependency.livedata
+    implementation applicationDependency.viewmodel
+
+    implementation applicationDependency.koin
+    implementation applicationDependency.fragment_koin
+    implementation applicationDependency.koin_viewmodel
+    implementation applicationDependency.okhttp
+    implementation applicationDependency.okhttp_logged
+    implementation applicationDependency.convert_coroutines
+
+    testImplementation applicationDependency.koin_test
+}

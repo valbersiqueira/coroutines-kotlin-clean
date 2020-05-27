@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!--    text-->
+    <dimen name="text_size_default">16sp</dimen>
+
+<!--    margin-->
+    <dimen name="margin_fault">8dp</dimen>
+    <dimen name="margin_medium">16dp</dimen>
+</resources>

@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">GetCep</string>
+
+    <string name="label_dialog_progress_bar">Carregando...</string>
+
+<!--    cep-->
+    <string name="cep_title_toolbar_input">Cep</string>
+    <string name="cep_label_input_cep">Cep</string>
+    <string name="cep_label_button_input_cep">Buscar</string>
+<!--    end to cep-->
+</resources>
