@@ -36,7 +36,7 @@ class CepRepositoryImpl(
         cep: String,
         result: Result<CepResponse, FailureError>.() -> Unit
     ) {
-        callApi.safeCallApi(dispatcher) { cepService.getCepTwoAsync(cep) }
+        callApi.safeCallApi(dispatcher) { cepService.getCepTwoAsync(cep).await() }
             .flow({
                 result(Result.Success(it))
             }, {

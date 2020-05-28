@@ -4,7 +4,6 @@ import android.util.Log
 import com.teste.getcep.core.fuctions.Result
 import com.teste.getcep.data.model.error.FailureError
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import java.io.IOException
@@ -13,11 +12,11 @@ class CallApiImpl: CallApi {
 
     override suspend fun <T> safeCallApi(
         dispatcher: CoroutineDispatcher,
-        api: suspend () -> Deferred<T>
+        api: suspend () -> T
     ): Result<T, FailureError> {
         return withContext(dispatcher) {
             try {
-                Result.Success(api.invoke().await())
+                Result.Success(api.invoke())
             } catch (ex: Throwable) {
                 when (ex) {
                     is IOException -> Result.Failure(FailureError.ShowNetworkError)

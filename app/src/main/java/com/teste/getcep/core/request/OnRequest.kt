@@ -16,7 +16,7 @@ interface OnRequest {
 interface CallApi {
     suspend fun <T> safeCallApi(
         dispatcher: CoroutineDispatcher,
-        api: suspend () -> Deferred<T>
+        api: suspend () -> T
     ): Result<T, FailureError>
 }
 

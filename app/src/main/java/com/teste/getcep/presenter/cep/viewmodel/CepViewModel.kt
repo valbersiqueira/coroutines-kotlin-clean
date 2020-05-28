@@ -54,7 +54,10 @@ class CepViewModel(
                     _cepState.value = CepState.HideLoading
                     _cepState.postValue(CepState.ShowCep(it))
                 }, {
-                    _cepState.value = CepState.HideLoading
+                    _cepState.run {
+                        value = CepState.HideLoading
+                        postValue(CepState.ShowErrorCep("erro"))
+                    }
                 })
             }
         }
