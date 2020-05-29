@@ -34,17 +34,6 @@ class CepRepositoryTest {
         cepRepository = CepRepositoryImpl(onRequest, cepServiceApi, dispatcher, callApi)
     }
 
-    @Test
-    fun `Assert that call api cep async`() {
-        cepServiceApi.getCepAsync("")
-        verify(cepServiceApi).getCepAsync("")
-    }
-
-    @Test
-    fun `Assert that call api cep two async`() {
-        cepServiceApi.getCepTwoAsync("")
-        verify(cepServiceApi).getCepTwoAsync("")
-    }
 
     @Test
     fun `Assert that call api cep success`() {
