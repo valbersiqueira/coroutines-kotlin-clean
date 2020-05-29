@@ -13,7 +13,7 @@ class CepUseCase(private val cepRepository: CepRepository) {
         cep: String,
         result: Result<Cep?, FailureError>.() -> Unit
     ) {
-        this.cepRepository.getCep(cep) {
+        cepRepository.getCep(cep) {
             flow({
                 result(Result.Success(it?.toCep()))
             }, {
