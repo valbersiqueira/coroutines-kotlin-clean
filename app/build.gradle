@@ -44,6 +44,9 @@ android {
         exclude 'META-INF/library_release.kotlin_module'
     }
 
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 dependencies {
@@ -80,9 +83,9 @@ dependencies {
     testImplementation applicationDependency.koin_test
 
     testImplementation applicationDependency.powermock_reflection
-
     testImplementation applicationDependency.powermock
     androidTestImplementation applicationDependency.powermock_android
+    testImplementation applicationDependency.core_test
 
     testImplementation applicationDependency.omshove_kluent
     testImplementation applicationDependency.android_kluent
