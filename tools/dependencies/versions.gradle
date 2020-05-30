@@ -19,7 +19,7 @@ ext {
     version_kluent = '1.61'
     powermock_reflect = '2.0.7'
     version_core_test = '1.1.1'
-//    version_core_test = '2.0.0-alpha1'
+    version_core_test = '2.1.0'
 
 
     mainApplication = [
@@ -47,8 +47,8 @@ ext {
             powermock           : "org.mockito:mockito-core:$powermock",
             powermock_android   : "org.mockito:mockito-android:$powermock",
             powermock_reflection: "org.powermock:powermock-reflect:$powermock_reflect",
-            core_test           : "android.arch.core:core-testing:$version_core_test",
-//            core_test           : "androidx.arch.core:core-testing:$version_core_test",
+//            core_test           : "android.arch.core:core-testing:$version_core_test",
+            core_test           : "androidx.arch.core:core-testing:$version_core_test",
 
             omshove_kluent      : "org.amshove.kluent:kluent:$version_kluent",
             android_kluent      : "org.amshove.kluent:kluent-android:$version_kluent",
