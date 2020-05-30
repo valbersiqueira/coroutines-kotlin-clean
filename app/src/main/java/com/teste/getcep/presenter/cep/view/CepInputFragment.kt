@@ -33,8 +33,8 @@ class CepInputFragment : Fragment() {
 
     private fun bindView() {
         buttonCepSearch.setOnClickListener {
-            cepViewModel.getCepTwo(cepInput.text.toString())
-//            cepViewModel.getCep(cepInput.text.toString())
+//            cepViewModel.getCepTwo(cepInput.text.toString())
+            cepViewModel.getCep(cepInput.text.toString())
         }
     }
 

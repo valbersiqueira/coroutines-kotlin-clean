@@ -9,13 +9,11 @@ import com.teste.getcep.core.request.DisposableTaskJob
 import com.teste.getcep.data.model.error.FailureError
 import com.teste.getcep.domain.usecase.CepUseCase
 import com.teste.getcep.presenter.cep.state.CepState
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 
 class CepViewModel(
-    private val cepUseCase: CepUseCase
+    private val cepUseCase: CepUseCase,
+    private val dispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
     private val _cepState by lazy { MutableLiveData<CepState>() }
@@ -26,7 +24,7 @@ class CepViewModel(
 
     fun getCep(cep: String) {
         _cepState.value = CepState.ShowLoading
-        disposableJob.add(CoroutineScope(Dispatchers.IO).launch {
+        disposableJob.add(CoroutineScope(dispatcher).launch {
             withContext(Dispatchers.Main) {
                 cepUseCase.getCep(cep) {
                     flow({

@@ -27,7 +27,7 @@ private val appModule = module(override = true) {
     factory<CepServiceApi> { CepService(retrofitInit) }
     factory<CepRepository> { CepRepositoryImpl(get(), get(), Dispatchers.IO, get()) }
     factory { CepUseCase(get()) }
-    viewModel { CepViewModel(get()) }
+    viewModel { CepViewModel(get(), Dispatchers.IO) }
 }
 
 fun initKoin(applicationContext: Context) {
