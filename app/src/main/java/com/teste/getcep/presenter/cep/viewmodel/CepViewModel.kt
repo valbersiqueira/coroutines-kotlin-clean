@@ -47,17 +47,15 @@ class CepViewModel(
     fun getCepTwo(cep: String) {
         _cepState.value = CepState.ShowLoading
         viewModelScope.launch {
-            cepUseCase.getCepTwo(cep) {
-                flow({
-                    _cepState.value = CepState.HideLoading
-                    _cepState.postValue(CepState.ShowCep(it))
-                }, {
-                    _cepState.run {
-                        value = CepState.HideLoading
-                        postValue(CepState.ShowErrorCep("erro"))
-                    }
-                })
-            }
+            cepUseCase.getCepTwo(cep).flow({
+                _cepState.value = CepState.HideLoading
+                _cepState.postValue(CepState.ShowCep(it))
+            }, {
+                _cepState.run {
+                    value = CepState.HideLoading
+                    postValue(CepState.ShowErrorCep("erro"))
+                }
+            })
         }
     }
 

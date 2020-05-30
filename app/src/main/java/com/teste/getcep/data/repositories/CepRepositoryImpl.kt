@@ -33,14 +33,13 @@ class CepRepositoryImpl(
     }
 
     override suspend fun getCepTwo(
-        cep: String,
-        result: Result<CepResponse, FailureError>.() -> Unit
-    ) {
-        callApi.safeCallApi(dispatcher) { cepService.getCepTwoAsync(cep) }
+        cep: String
+    ): Result<CepResponse, FailureError> {
+        return callApi.safeCallApi(dispatcher) { cepService.getCepTwoAsync(cep) }
             .flow({
-                result(Result.Success(it))
+                Result.Success(it)
             }, {
-                result(Result.Failure(it))
+                Result.Failure(it)
             })
     }
 

@@ -23,15 +23,14 @@ class CepUseCase(private val cepRepository: CepRepository) {
     }
 
     suspend fun getCepTwo(
-        cep: String,
-        result: Result<Cep, FailureError>.() -> Unit
-    ) {
-        cepRepository.getCepTwo(cep) {
-            flow({
-                result(Result.Success(it.toCep()))
+        cep: String
+    ): Result<Cep, FailureError> {
+        return cepRepository.getCepTwo(cep)
+            .flow({
+                Result.Success(it.toCep())
             }, {
-                result(Result.Failure(it))
+                Result.Failure(it)
             })
-        }
+
     }
 }

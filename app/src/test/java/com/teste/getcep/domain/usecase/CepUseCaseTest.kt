@@ -7,12 +7,16 @@ import com.teste.getcep.data.model.cep.CepResponse
 import com.teste.getcep.data.model.error.FailureError
 import com.teste.getcep.domain.entities.Cep
 import com.teste.getcep.domain.repositories.CepRepository
+import com.teste.getcep.mockCep
 import com.teste.getcep.mockCepResponse
 import kotlinx.coroutines.test.runBlockingTest
+import org.amshove.kluent.shouldBeEqualTo
+import org.amshove.kluent.shouldHaveTheSameClassAs
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito
+import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
 
 class CepUseCaseTest {
@@ -26,28 +30,17 @@ class CepUseCaseTest {
     }
 
     @Test
-    fun `Assert that cep two no-null receive usecase`() {
-        val resultCaptor = argumentCaptor<Result<CepResponse?, FailureError>.() -> Unit>()
-        val cepCaptor = argumentCaptor<String>()
-        runBlockingTest {
+    fun `Assert that cep two no-null receive usecase`() = runBlockingTest{
+        `when`(cepRepository.getCepTwo("")).thenReturn(Result.Success(mockCepResponse))
 
-            Mockito.doAnswer {
-                @Suppress("UNCHECKED_CAST")
-                (it.arguments[1] as Result<CepResponse, FailureError.FailureServer>.() -> Unit)
-                    .invoke(Result.Success(mockCepResponse))
-            }.`when`(cepRepository).getCepTwo(
-                cepCaptor.capture(),
-                resultCaptor.captureLambda()
-            )
+        val expected = Result.Success(mockCep)
 
-            var cep: Cep? = null
-            cepUseCaseTest.getCepTwo("") {
-                flow({
-                    cep = it
-                }, {})
-            }
-            Assert.assertNotNull(cep)
-        }
+        val actual = cepUseCaseTest.getCepTwo("")
+
+        actual shouldHaveTheSameClassAs Result.Success(mockCep)
+
+        actual shouldBeEqualTo expected
+
     }
 
     @Test

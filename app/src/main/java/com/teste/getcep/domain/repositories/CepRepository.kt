@@ -12,7 +12,6 @@ interface CepRepository {
     )
 
     suspend fun getCepTwo(
-        cep: String,
-        result: Result<CepResponse, FailureError>.() -> Unit
-    )
+        cep: String
+    ): Result<CepResponse, FailureError>
 }
