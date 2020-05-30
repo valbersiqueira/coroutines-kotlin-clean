@@ -2,7 +2,11 @@
 Projeto de exemplo com coroutines e kotlinx
 
 # Teste no Repository
-private val dispatcher = TestCoroutineDispatcher()
+
+@Suppress("DeferredResultUnused")
+class CepRepositoryTest {
+
+    private val dispatcher = TestCoroutineDispatcher()
     private lateinit var callApi: CallApi
 
     private val callApiMock = mock(CallApi::class.java)
@@ -56,3 +60,55 @@ private val dispatcher = TestCoroutineDispatcher()
             verifyNoMoreInteractions(cepServiceApi)
         }
     }
+
+}
+
+
+# Teste no ViewModel
+class CepViewModelTest : AutoCloseKoinTest() {
+
+    private val cepUseCase = Mockito.mock(CepUseCase::class.java)
+    private lateinit var cepViewModel: CepViewModel
+
+    private val dispatcher = TestCoroutineDispatcher()
+
+    @get:Rule
+    var mainCoroutineRule = MainCoroutineRule()
+
+    @get:Rule
+    val instantExecutorRule = InstantTaskExecutorRule()
+
+    @Before
+    fun setUp() {
+        startKoin {
+            modules(module {
+                factory { cepUseCase }
+                viewModel { CepViewModel(get(), dispatcher) }
+            })
+        }
+        cepViewModel = get()
+    }
+
+    @After
+    fun tearDownDispatcher() {
+    }
+
+    @Test
+    fun `Assert that call cep success`() {
+
+        runBlockingTest {
+
+            `when`(cepUseCase.getCepTwo("")).thenReturn(
+                com.teste.getcep.core.fuctions.Result.Success(mockCep)
+            )
+
+            val expected = CepState.ShowCep::class.java
+
+            cepViewModel.getCepTwo("")
+            val actual = cepViewModel.cepState.value
+
+            Assert.assertThat(actual, IsInstanceOf(expected))
+        }
+
+    }
+}
